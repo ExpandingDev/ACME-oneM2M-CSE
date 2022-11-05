@@ -16,6 +16,7 @@ from typing import Any, Callable, cast, Tuple
 
 import flask
 from flask import Flask, Request, request
+from flask_cors import CORS
 from werkzeug.wrappers import Response
 from werkzeug.serving import WSGIRequestHandler
 from werkzeug.datastructures import MultiDict
@@ -68,6 +69,13 @@ class HttpServer(object):
 		L.isInfo and L.log(f'Registering http server root at: {self.rootPath}')
 		if CSE.security.useTLSHttp:
 			L.isInfo and L.log('TLS enabled. HTTP server serves via https.')
+
+		# !!!!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!!!!!
+		# DO NOT USE THIS IN A PRODUCTION ENVIRONMENT!!!
+		# THIS ALLOWS CROSS ORIGIN REQUESTS BLINDLY!!!
+		CORS(self.flaskApp)
+		L.logWarn("CORS enabled to accept all requests!")
+		L.logWarn("Do NOT use this for a production environment!")
 
 
 		# Add endpoints
