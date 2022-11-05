@@ -29,6 +29,7 @@ setup(
 	install_requires=[
 		'cbor2',
 		'flask',
+        'flask-cors',
 		'InquirerPy',
 		'isodate',
 		'paho-mqtt',
